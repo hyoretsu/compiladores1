@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import printTable from "./utils/printTable";
 import { exit } from "node:process";
+import { classification, regexReservedCharacters, regexes } from "./utils";
 
 const input = fs.readFileSync(path.resolve("./lexicalAnalysis/input.txt")).toString();
 
@@ -9,43 +10,6 @@ if ([...input.matchAll(/{/g)].length > [...input.matchAll(/}/g)].length) {
 	console.error("Comentário não fechado");
 	exit();
 }
-
-const classification = {
-	Atribuição: [":="],
-	Delimitador: [";", ".", ":", "(", ")", ","],
-	Identificador: (str: string) => str.match(/^[A-Za-z](?:[A-Za-z]|\d|_)*$/g),
-	"Número inteiro": (num: string) => Number.isInteger(Number(num)),
-	"Número real": (num: string) => !Number.isNaN(Number(num)),
-	Operador: ["=", "<", ">", "<=", ">=", "<>", "+", "-", "or", "*", "/", "and"],
-	"Palavra reservada": [
-		"program",
-		"var",
-		"integer",
-		"real",
-		"boolean",
-		"procedure",
-		"begin",
-		"end",
-		"if",
-		"then",
-		"else",
-		"while",
-		"do",
-		"not",
-	],
-};
-const regexReservedCharacters = ["*", "+", ".", "?", "|", "\\", "^", "$", "(", ")"];
-const regexes = {
-	comment: /{.+?}/g,
-	delimiters: new RegExp(
-		`(:=|${classification.Delimitador.map(delimiter =>
-			regexReservedCharacters.includes(delimiter) ? `\\${delimiter}` : delimiter,
-		).join("|")})`,
-		"g",
-	),
-	multilineComment: /{(?:.|\s|\t|\n)+?}/g,
-	whitespace: /(?:\s|\t|\n)+/g,
-};
 
 const lines = input.split(/\n/g);
 
@@ -108,9 +72,6 @@ const tokens = groupsMinusComments.flatMap(group => {
 			return tokens.map(token => [token, findLine(token)]);
 		});
 }) as [string, number][];
-
-// console.log(tokenOccurences);
-// console.log(tokens);
 
 printTable(
 	tokens.map(([token, line]) => {
