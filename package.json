@@ -2,13 +2,17 @@
 	"name": "compiladores1",
 	"private": true,
 	"scripts": {
-		"build": "pnpm build:lexical",
-		"build:lexical": "tsc lexicalAnalysis/index.ts lexicalAnalysis/automaton.ts **/utils/* --esModuleInterop --transpileOnly --target esnext --outDir \"build\"/lexicalAnalysis"
+		"build": "tsup",
+		"dev": "tsx"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.4.1",
 		"@types/node": "^20.10.5",
+		"tsup": "^8.0.1",
 		"tsx": "^4.6.2",
 		"typescript": "^5.3.3"
+	},
+	"dependencies": {
+		"table": "^6.8.1"
 	}
 }

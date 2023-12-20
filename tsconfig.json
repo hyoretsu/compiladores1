@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+        "downlevelIteration": true,
+        "typeRoots": ["node_modules/@types", "@types"]
+    }
+}
