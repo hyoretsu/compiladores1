@@ -6,10 +6,10 @@ begin
    B := 10;
    if (A > B) then
    begin
-      X := A;
+      X := A+3*2(25/5);
       A := B;
-      B := X   {veja que o último comando de um bloco não possui o ;}
+      B := X   {veja que o Ãºltimo comando de um bloco nÃ£o possui o ;}
    end         {alguns alunos preferem implementar com ;}
-end.	       
+end.
 
-{gere erros sintáticos}
+{gere erros sintÃ¡ticos}
