@@ -1,7 +1,7 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 import { paramsList } from "./paramsList";
 
-export function args(lexicalResult: LexicalResult) {
+export function args(lexicalResult: LexicalResult[]) {
 	if (lexicalResult[0].token !== "(") {
 		return;
 	}

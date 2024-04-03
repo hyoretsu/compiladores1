@@ -1,8 +1,8 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 import { expression } from "./expression";
 import { expressionList } from "./expressionList";
 
-export function factor(lexicalResult: LexicalResult) {
+export function factor(lexicalResult: LexicalResult[]) {
 	if (lexicalResult[0].classification === "Identificador") {
 		lexicalResult.splice(0, 1);
 

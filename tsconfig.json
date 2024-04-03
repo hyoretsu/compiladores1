@@ -1,6 +1,7 @@
 {
-    "compilerOptions": {
-        "downlevelIteration": true,
-        "typeRoots": ["node_modules/@types", "@types"]
-    }
+	"compilerOptions": {
+		"downlevelIteration": true,
+		"lib": ["ES2023"],
+		"typeRoots": ["node_modules/@types", "@types"]
+	}
 }

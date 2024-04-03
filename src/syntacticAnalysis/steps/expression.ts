@@ -1,9 +1,9 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 import { simpleExpression } from "./simpleExpression";
 
 const relationalOperators = ["=", "<", ">", "<=", ">=", "<>"];
 
-export function expression(lexicalResult: LexicalResult) {
+export function expression(lexicalResult: LexicalResult[]) {
 	simpleExpression(lexicalResult);
 
 	if (relationalOperators.includes(lexicalResult[0].token)) {

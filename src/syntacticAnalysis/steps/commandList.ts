@@ -1,7 +1,7 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 import { command } from "./command";
 
-export function commandList(lexicalResult: LexicalResult) {
+export function commandList(lexicalResult: LexicalResult[]) {
 	command(lexicalResult);
 
 	if (lexicalResult[0].token === ";") {

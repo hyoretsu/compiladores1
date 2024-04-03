@@ -13,7 +13,6 @@ function main() {
 	} catch (e) {
 		if (e instanceof Error) {
 			console.error(e.message);
-			return;
 		}
 	}
 }

@@ -1,8 +1,8 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 import { identifierList } from "./identifierList";
 import { type } from "./type";
 
-export function variableDeclarationList(lexicalResult: LexicalResult) {
+export function variableDeclarationList(lexicalResult: LexicalResult[]) {
 	identifierList(lexicalResult);
 
 	if (lexicalResult.splice(0, 1)[0].token !== ":") {

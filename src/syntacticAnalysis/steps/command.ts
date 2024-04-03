@@ -1,10 +1,10 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 import { compositeCommand } from "./compositeCommand";
 import { elseBlock } from "./elseBlock";
 import { expression } from "./expression";
 import { expressionList } from "./expressionList";
 
-export function command(lexicalResult: LexicalResult) {
+export function command(lexicalResult: LexicalResult[]) {
 	if (lexicalResult[0].classification === "Identificador") {
 		lexicalResult.splice(0, 1);
 

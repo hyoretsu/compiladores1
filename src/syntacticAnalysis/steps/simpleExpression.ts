@@ -1,10 +1,10 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 import { term } from "./term";
 
 const signs = ["+", "-"];
 const additiveOperators = [...signs, "or"];
 
-export function simpleExpression(lexicalResult: LexicalResult, loop = false) {
+export function simpleExpression(lexicalResult: LexicalResult[], loop = false) {
 	if (signs.includes(lexicalResult[0].token)) {
 		lexicalResult.splice(0, 1);
 	}
@@ -14,7 +14,7 @@ export function simpleExpression(lexicalResult: LexicalResult, loop = false) {
 	simpleExpressionLoop(lexicalResult);
 }
 
-function simpleExpressionLoop(lexicalResult: LexicalResult) {
+function simpleExpressionLoop(lexicalResult: LexicalResult[]) {
 	if (!additiveOperators.includes(lexicalResult[0].token)) {
 		return;
 	}

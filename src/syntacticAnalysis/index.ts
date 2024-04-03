@@ -1,18 +1,14 @@
-import lexicalAnalysis from "../lexicalAnalysis/utils/lexicalAnalysis";
+import lexicalAnalysis, { LexicalResult } from "../lexicalAnalysis/utils/lexicalAnalysis";
 import { compositeCommand, subprogramDeclarationBlock, variableDeclarationBlock } from "./steps";
-
-export type LexicalResult = Array<{ token: string; classification: string }>;
 
 function main() {
 	if (process.argv.length !== 3) {
 		throw new Error("Passe o caminho do arquivo de input");
 	}
 
-	const lexicalResult = lexicalAnalysis(process.argv[2]).map(analysis => {
-		analysis.splice(-1);
-
-		return { token: analysis[0], classification: analysis[1] };
-	}) as LexicalResult;
+	const lexicalResult = lexicalAnalysis(process.argv[2]).map<LexicalResult>(
+		([token, classification, line]) => ({ token, classification, line }),
+	);
 
 	const programAndId = lexicalResult.splice(0, 3);
 

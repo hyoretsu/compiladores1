@@ -1,9 +1,9 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 import { factor } from "./factor";
 
 const multiplicativeOperators = ["*", "/", "or"];
 
-export function term(lexicalResult: LexicalResult, loop = false) {
+export function term(lexicalResult: LexicalResult[], loop = false) {
 	if (loop) {
 		if (!multiplicativeOperators.includes(lexicalResult[0].token)) {
 			return;

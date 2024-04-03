@@ -1,7 +1,7 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 import { optionalCommands } from "./optionalCommands";
 
-export function compositeCommand(lexicalResult: LexicalResult) {
+export function compositeCommand(lexicalResult: LexicalResult[]) {
 	if (lexicalResult.splice(0, 1)[0].token !== "begin") {
 		throw new Error("Você precisa começar comandos compostos com a palavra reservada 'begin'");
 	}

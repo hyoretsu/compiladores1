@@ -1,6 +1,6 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 
-export function type(lexicalResult: LexicalResult) {
+export function type(lexicalResult: LexicalResult[]) {
 	const { token } = lexicalResult.splice(0, 1)[0];
 
 	if (token !== "integer" && token !== "real" && token !== "boolean") {

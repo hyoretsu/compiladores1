@@ -1,6 +1,12 @@
 import { readFileSync } from "fs";
 import { classification, regexReservedCharacters, regexes } from ".";
 
+export type LexicalResult = {
+	token: string;
+	classification: string;
+	line: number;
+};
+
 export default function lexicalAnalysis(inputPath: string) {
 	const input = readFileSync(inputPath, { encoding: "utf8" });
 
@@ -18,7 +24,7 @@ export default function lexicalAnalysis(inputPath: string) {
 
 	// Returns a table with the token and the line it's located in
 	const tokens = groupsMinusComments.flatMap(group => {
-		const findLine = (str: string) => {
+		function findLine(str: string) {
 			Object.assign(tokenOccurences, {
 				[str]: (tokenOccurences[str] || 0) + 1,
 			});
@@ -58,7 +64,7 @@ export default function lexicalAnalysis(inputPath: string) {
 
 			// Get the xth occurence of the token, get its index (line) and add 1 to make it human-readable
 			return lines.indexOf(lineOccurences[tokenOccurences[str] - 1]) + 1;
-		};
+		}
 
 		// Otherwise, filter whitespaces and the like
 		return group
@@ -69,39 +75,24 @@ export default function lexicalAnalysis(inputPath: string) {
 					.split(regexes.delimiters)
 					.filter(token => token)
 					// Separar identificadores de operadores que foram confundidos como um token só
-					.flatMap(token => {
-						if (token.length < 3) {
-							return token;
-						}
-
-						const matches = [...token.matchAll(/(.*)([^:<>]=|>[^=]|<[^=]|<=|>=|<>|\+|-|or|\*|\/|and)(.*)/g)];
-
-						if (matches.length === 0) {
-							return token;
-						}
-
-						return matches[0].slice(1);
-					})
+					.flatMap(token => token.split(/([^:<>]=|>=?|<=?|<>|\+|-|\*|\/)/g))
 					.filter(token => token);
 
 				return tokens.map(token => [token, findLine(token)]);
 			});
 	}) as [string, number][];
 
-	const result = tokens.reduce(
-		(arr, [token, line]) => {
-			const type = Object.entries(classification).find(([_, chars]) => {
-				return typeof chars === "function" ? chars(token) : chars.includes(token);
-			});
-			if (!type) {
-				throw new Error(`Erro de classificação no token \`${token}\` da linha ${line}`);
-			}
+	const result = tokens.reduce<[string, string, number][]>((arr, [token, line]) => {
+		const type = Object.entries(classification).find(([_, chars]) => {
+			return typeof chars === "function" ? chars(token) : chars.includes(token);
+		});
+		if (!type) {
+			throw new Error(`Erro de classificação no token \`${token}\` da linha ${line}`);
+		}
 
-			arr.push([token, type![0], line]);
-			return arr;
-		},
-		[] as Array<string | number>[],
-	);
+		arr.push([token, type![0], line]);
+		return arr;
+	}, []);
 
 	return result;
 }

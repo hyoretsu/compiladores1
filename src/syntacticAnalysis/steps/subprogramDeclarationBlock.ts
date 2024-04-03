@@ -1,7 +1,7 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 import { subprogramDeclaration } from "./subprogramDeclaration";
 
-export function subprogramDeclarationBlock(lexicalResult: LexicalResult) {
+export function subprogramDeclarationBlock(lexicalResult: LexicalResult[]) {
 	if (lexicalResult[0].token !== "procedure") {
 		return;
 	}

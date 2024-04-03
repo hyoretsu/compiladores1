@@ -1,6 +1,6 @@
-import { LexicalResult } from "..";
+import { LexicalResult } from "../../lexicalAnalysis/utils/lexicalAnalysis";
 
-export function identifierList(lexicalResult: LexicalResult) {
+export function identifierList(lexicalResult: LexicalResult[]) {
 	const { classification } = lexicalResult.splice(0, 1)[0];
 
 	if (classification !== "Identificador") {

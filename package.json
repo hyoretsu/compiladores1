@@ -2,8 +2,7 @@
 	"name": "compiladores1",
 	"private": true,
 	"scripts": {
-		"build": "tsup",
-		"dev": "tsx"
+		"build": "tsup"
 	},
 	"dependencies": {
 		"table": "^6.8.1"
