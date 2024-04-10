@@ -1,9 +1,15 @@
+import { readFileSync } from "fs";
 import { table } from "table";
-import input from "./input.txt";
 import { classification, regexReservedCharacters, regexes } from "./utils";
 import LexicalAnalyser from "./utils/LexicalAnalyser";
 
 const main = () => {
+	if (process.argv.length !== 3) {
+		throw new Error("Passe o caminho do arquivo de input");
+	}
+
+	const input = readFileSync(process.argv[2], { encoding: "utf8" });
+
 	if ([...input.matchAll(/{/g)].length > [...input.matchAll(/}/g)].length) {
 		console.error("Comentário não fechado");
 		return;

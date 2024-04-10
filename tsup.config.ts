@@ -3,10 +3,10 @@ import type { Options } from "tsup";
 export const tsup: Options = {
 	bundle: true,
 	clean: true,
-	entry: ["lexicalAnalysis/*.ts"],
+	entry: ["src/lexicalAnalysis/*.ts", "src/semanticAnalysis/index.ts", "src/syntacticAnalysis/*.ts"],
 	esbuildOptions(options, context) {
 		// the directory structure will be the same as the source
-		options.outbase = "./";
+		options.outbase = "./src";
 	},
 	format: ["iife"],
 	injectStyle: true,
